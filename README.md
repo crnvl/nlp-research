@@ -12,3 +12,4 @@
  A text generation model that can generate tweets, which is also trained on tweets.
  Related Files:
     - [Jupyter Notebook v1](nlptw.ipynb)
+    - [Twitter Crawler](./scripts/nlptw-bot/main.py)
