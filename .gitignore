@@ -1,0 +1,4 @@
+*.json
+secrets.py
+*.h5
+*.txt

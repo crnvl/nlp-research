@@ -7,7 +7,7 @@ from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout, Bidirection
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam    
 
-with open('./data/testing.txt') as f:
+with open('./data/tweetdata.txt') as f:
     lines = f.read()
 
 tokenizer = Tokenizer()
@@ -45,4 +45,4 @@ adam = Adam(lr=0.01)
 model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
 history = model.fit(xs, ys, epochs=100, verbose=1)
 
-model.save('../models/nlptw.h5')
+model.save('./models/nlptw-1.h5')
