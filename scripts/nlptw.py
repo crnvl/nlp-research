@@ -1,3 +1,4 @@
+from datetime import datetime
 import tensorflow as tf
 import numpy as np
 
@@ -6,8 +7,9 @@ from tensorflow.keras.utils import to_categorical, pad_sequences
 from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout, Bidirectional
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam    
+from tensorflow import keras
 
-with open('./data/tweetdata.txt') as f:
+with open('./data/tweetdata.txt', encoding="utf8") as f:
     lines = f.read()
 
 tokenizer = Tokenizer()
@@ -37,12 +39,15 @@ labels = input_sequences[:,-1]
 
 ys = tf.keras.utils.to_categorical(labels, num_classes=total_words)
 
+logdir = "logs/scalars/" + datetime.now().strftime("%Y%m%d-%H%M%S")
+tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir)
+
 model = Sequential()
 model.add(Embedding(total_words,240, input_length=max_sequence_length-1))
 model.add(Bidirectional(LSTM(150)))
 model.add(Dense(total_words, activation='softmax'))
 adam = Adam(lr=0.01)
 model.compile(loss='categorical_crossentropy', optimizer=adam, metrics=['accuracy'])
-history = model.fit(xs, ys, epochs=100, verbose=1)
+history = model.fit(xs, ys, epochs=100, verbose=1, callbacks=[tensorboard_callback], use_multiprocessing=True)
 
 model.save('./models/nlptw-1.h5')
