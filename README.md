@@ -13,3 +13,5 @@
  Related Files:
     - [Jupyter Notebook v1](nlptw.ipynb)
     - [Twitter Crawler](./scripts/nlptw-bot/main.py)
+
+ Follow nlptw on Twitter: [@nlptw](https://twitter.com/nlptw)
