@@ -1,3 +1,4 @@
+import re
 import time
 import tweepy
 import secrets
@@ -18,15 +19,17 @@ if __name__ == "__main__":
         for tweet in bot.search_tweets(q='lgbtq', count=100, lang='en'):
             print(str(tweet.id))
             if tweet.id not in checked:
-                with open("./data/tweetdata.txt", "a", encoding='utf-8') as tweet_file:
+                with open("./data/tweetdata-exp.txt", "a", encoding='utf-8') as tweet_file:
                     if tweet.text.startswith("RT"):
                         break
                     if tweet.text.startswith("@"):
                         break
-                    if tweet.text.startswith("http"):
-                        break
                     if tweet.text == "":
                         break
-                    tweet_file.writelines(tweet.text + "\n")
+                    if tweet.truncated:
+                        print(tweet)
+                        tweet_file.write(re.sub(r'https\S+', '', tweet.extended_tweet['full_text'], flags=re.MULTILINE) + "\n")
+                    else:
+                        tweet_file.write(re.sub(r'https\S+', '', tweet.text, flags=re.MULTILINE) + "\n")
                     checked.append(tweet.id)
             time.sleep(2)
