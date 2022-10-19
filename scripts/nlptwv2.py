@@ -7,13 +7,12 @@ from tensorflow.keras.layers import Embedding, LSTM, Dense, Dropout, Bidirection
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.optimizers import Adam
 
-with open('../data/tweetdata.txt', encoding="utf8") as f:
+with open('./data/wom.txt', encoding="utf8") as f:
     lines = f.read()
 
 
 tokenizer = Tokenizer(
-    filters='"#$%&()*+-/<=>@[\\]^_`{|}~\t\n',
-    split=' ',
+    filters='\t\n',
 )
 data = lines
 corpus = data.split(".")

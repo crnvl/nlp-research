@@ -2,3 +2,6 @@
 secrets.py
 *.h5
 *.txt
+*.v2
+*.pyc
+notebooks/nlptw.ipynb
